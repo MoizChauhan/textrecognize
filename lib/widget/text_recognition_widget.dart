@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:textrecognize/api/firebase_ml_api.dart';
-import 'package:textrecognize/widget/text_area_widget.dart';
+import 'package:firebase_ml_text_recognition/api/firebase_ml_api.dart';
+import 'package:firebase_ml_text_recognition/widget/text_area_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -10,7 +10,7 @@ import 'controls_widget.dart';
 
 class TextRecognitionWidget extends StatefulWidget {
   const TextRecognitionWidget({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class TextRecognitionWidget extends StatefulWidget {
 
 class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   String text = '';
-  File? image;
+  File image;
 
   @override
   Widget build(BuildContext context) => Expanded(
@@ -42,12 +42,12 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       );
 
   Widget buildImage() => Container(
-        child: image != null ? Image.file(image!) : Icon(Icons.photo, size: 80, color: Colors.black),
+        child: image != null ? Image.file(image) : Icon(Icons.photo, size: 80, color: Colors.black),
       );
 
   Future pickImage() async {
     final file = await ImagePicker().getImage(source: ImageSource.gallery);
-    setImage(File(file!.path));
+    setImage(File(file.path));
   }
 
   Future scanText() async {
@@ -60,7 +60,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       },
     );
 
-    final text = await FirebaseMLApi.recogniseText(image!);
+    final text = await FirebaseMLApi.recogniseText(image);
     setText(text);
 
     Navigator.of(context).pop();
@@ -77,7 +77,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
     }
   }
 
-  void setImage(File? newImage) {
+  void setImage(File newImage) {
     setState(() {
       image = newImage;
     });

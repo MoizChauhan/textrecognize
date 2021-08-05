@@ -1,49 +1,35 @@
 {
   "project_info": {
-    "project_number": "450270025538",
-    "project_id": "authentication-test-246b9",
-    "storage_bucket": "authentication-test-246b9.appspot.com"
+    "project_number": "687764279773",
+    "firebase_url": "https://fir-ml-641e1.firebaseio.com",
+    "project_id": "fir-ml-641e1",
+    "storage_bucket": "fir-ml-641e1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:450270025538:android:429b5995b28271a0459adb",
+        "mobilesdk_app_id": "1:687764279773:android:fd2bb416dbb6d286be6634",
         "android_client_info": {
           "package_name": "com.example.textrecognize"
         }
       },
       "oauth_client": [
         {
-          "client_id": "450270025538-4b8rgb66v40ucegukrenisdfecfljhqq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.textrecognize",
-            "certificate_hash": "d77684befe00c91da4aab571da951d881ee1ab4d"
-          }
-        },
-        {
-          "client_id": "450270025538-4qa4nbs1kkn6h8id6gh7ian68tiuq2s8.apps.googleusercontent.com",
+          "client_id": "687764279773-jro53n6ebsuo25ajpgi83sc83i4u4eeu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAoLpYqQ_Ip_iWtlCABxkpheih53SvCvtk"
+          "current_key": "AIzaSyD164JZlTEAIHQJ_V2rx9KQwoMtFT7pwQE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "450270025538-4qa4nbs1kkn6h8id6gh7ian68tiuq2s8.apps.googleusercontent.com",
+              "client_id": "687764279773-jro53n6ebsuo25ajpgi83sc83i4u4eeu.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "450270025538-3of950rmiohged441345dgd94isj7cot.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.flutterflow.testapp"
-              }
             }
           ]
         }

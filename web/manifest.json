@@ -1,6 +1,6 @@
 {
-    "name": "textrecognize",
-    "short_name": "textrecognize",
+    "name": "firebase_ml_text_recognition",
+    "short_name": "firebase_ml_text_recognition",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

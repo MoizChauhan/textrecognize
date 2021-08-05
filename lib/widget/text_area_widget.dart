@@ -5,9 +5,9 @@ class TextAreaWidget extends StatelessWidget {
   final VoidCallback onClickedCopy;
 
   const TextAreaWidget({
-    required this.text,
-    required this.onClickedCopy,
-    Key? key,
+    @required this.text,
+    @required this.onClickedCopy,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -34,33 +34,3 @@ class TextAreaWidget extends StatelessWidget {
         ],
       );
 }
-// Column(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           "Date " +
-//                               state.text.split("\n")[1].split(' ')[0],
-//                           style: TextStyle(fontWeight: FontWeight.w500),
-//                         ),
-//                         Text(
-//                           state.text.split("\n")[5],
-//                         ),
-//                         Text(
-//                           state.text.split("\n")[6],
-//                         ),
-//                         Text(
-//                           state.text.split("\n")[7],
-//                         ),
-//                         Text(
-//                           state.text.split("\n")[8],
-//                         ),
-//                         Text(
-//                           state.text.split("\n")[9],
-//                         ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),

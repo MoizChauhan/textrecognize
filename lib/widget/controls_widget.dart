@@ -6,10 +6,10 @@ class ControlsWidget extends StatelessWidget {
   final VoidCallback onClickedClear;
 
   const ControlsWidget({
-    required this.onClickedPickImage,
-    required this.onClickedScanText,
-    required this.onClickedClear,
-    Key? key,
+    @required this.onClickedPickImage,
+    @required this.onClickedScanText,
+    @required this.onClickedClear,
+    Key key,
   }) : super(key: key);
 
   @override

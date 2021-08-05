@@ -1,4 +1,4 @@
-import 'package:textrecognize/widget/text_recognition_widget.dart';
+import 'package:firebase_ml_text_recognition/widget/text_recognition_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -19,7 +19,7 @@ class MainPage extends StatefulWidget {
   final String title;
 
   const MainPage({
-    required this.title,
+    @required this.title,
   });
 
   @override
