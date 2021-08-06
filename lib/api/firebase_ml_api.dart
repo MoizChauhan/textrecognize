@@ -24,6 +24,7 @@ class FirebaseMLApi {
   static extractText(VisionText visionText) {
     String text = '';
     RegExp ticketRegex = RegExp(r"\d[:][\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d");
+    RegExp dateRegex = RegExp(r"\b\d\d[.]\d\d[.]\d\d");
     int i =0;
     for (TextBlock block in visionText.blocks) {
 
@@ -32,8 +33,14 @@ class FirebaseMLApi {
         //   text = text + word.text + ' ';
         // }
         print("line $i : ${line.text} ");
-        if(ticketRegex.hasMatch(line.text))
+        if(ticketRegex.hasMatch(line.text)){
+
         text = text+ line.text + '\n';
+        }
+        if(dateRegex.hasMatch(line.text)){
+          text = text+ dateRegex.stringMatch(line.text)+ '\n';
+
+        }
       }
       // print("block $i : ${block.text} ");
       // if(block.text.contains("1:") && block.text.contains("2:")){
