@@ -15,7 +15,7 @@ dependencies:
 
   image_picker: ^0.6.7+11
   clipboard: ^0.1.2+8
-
+  adaptive_action_sheet: 1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

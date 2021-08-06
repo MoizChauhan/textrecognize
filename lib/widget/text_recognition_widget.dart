@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:firebase_ml_text_recognition/Utils/colors.dart';
 import 'package:firebase_ml_text_recognition/api/firebase_ml_api.dart';
 import 'package:firebase_ml_text_recognition/widget/text_area_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'controls_widget.dart';
 
 class TextRecognitionWidget extends StatefulWidget {
@@ -40,12 +41,51 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
           ],
         ),
       );
+  //Camera Actions
+  cameraAction(BuildContext context) {
+    showAdaptiveActionSheet(
+      title: Text(
+        "Select Option",
+        style: TextStyle(fontSize: 25),
+      ),
+      actions: <BottomSheetAction>[
+        BottomSheetAction(
+          title: Text("Camera", style: TextStyle(color: primaryColor)),
+          onPressed: () {
+            captureImage();
+          },
+        ),
+        BottomSheetAction(
+          title: Text(
+            "Gallery",
+            style: TextStyle(color: primaryColor),
+          ),
+          onPressed: () {
+            pickImage();
+          },
+        )
+      ],
+      cancelAction: CancelAction(
+        title: Text("Cancel"),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      context: context,
+    );
+    // showCupertinoModalPopup(context: context, builder: (context) => action);
+  }
 
   Widget buildImage() => Container(
         child: image != null ? Image.file(image) : Icon(Icons.photo, size: 80, color: Colors.black),
       );
 
   Future pickImage() async {
+    final file = await ImagePicker().getImage(source: ImageSource.gallery);
+    setImage(File(file.path));
+  }
+
+  Future captureImage() async {
     final file = await ImagePicker().getImage(source: ImageSource.gallery);
     setImage(File(file.path));
   }
