@@ -29,7 +29,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
             Expanded(child: buildImage()),
             const SizedBox(height: 16),
             ControlsWidget(
-              onClickedPickImage: pickImage,
+              onClickedPickImage: cameraAction,
               onClickedScanText: scanText,
               onClickedClear: clear,
             ),
@@ -42,7 +42,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
         ),
       );
   //Camera Actions
-  cameraAction(BuildContext context) {
+  cameraAction() {
     showAdaptiveActionSheet(
       title: Text(
         "Select Option",
@@ -52,6 +52,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
         BottomSheetAction(
           title: Text("Camera", style: TextStyle(color: primaryColor)),
           onPressed: () {
+            Navigator.pop(context);
             captureImage();
           },
         ),
@@ -61,7 +62,9 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
             style: TextStyle(color: primaryColor),
           ),
           onPressed: () {
+            Navigator.pop(context);
             pickImage();
+
           },
         )
       ],
@@ -86,7 +89,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   }
 
   Future captureImage() async {
-    final file = await ImagePicker().getImage(source: ImageSource.gallery);
+    final file = await ImagePicker().getImage(source: ImageSource.camera);
     setImage(File(file.path));
   }
 
