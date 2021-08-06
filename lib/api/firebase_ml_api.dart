@@ -23,14 +23,23 @@ class FirebaseMLApi {
 
   static extractText(VisionText visionText) {
     String text = '';
-
+    RegExp ticketRegex = RegExp(r"\d[:][\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d");
+    int i =0;
     for (TextBlock block in visionText.blocks) {
+
       for (TextLine line in block.lines) {
-        for (TextElement word in line.elements) {
-          text = text + word.text + ' ';
-        }
-        text = text + '\n';
+        // for (TextElement word in line.elements) {
+        //   text = text + word.text + ' ';
+        // }
+        print("line $i : ${line.text} ");
+        if(ticketRegex.hasMatch(line.text))
+        text = text+ line.text + '\n';
       }
+      // print("block $i : ${block.text} ");
+      // if(block.text.contains("1:") && block.text.contains("2:")){
+      //   text = text + block.text + '\n';
+      // }
+    i++;
     }
 
     return text;
