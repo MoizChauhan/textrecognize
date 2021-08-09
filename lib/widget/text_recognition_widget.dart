@@ -64,7 +64,6 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
           onPressed: () {
             Navigator.pop(context);
             pickImage();
-
           },
         )
       ],
@@ -124,6 +123,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
     setState(() {
       image = newImage;
     });
+    scanText();
   }
 
   void setText(String newText) {

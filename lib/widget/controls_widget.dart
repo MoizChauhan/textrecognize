@@ -20,16 +20,16 @@ class ControlsWidget extends StatelessWidget {
             onPressed: onClickedPickImage,
             child: Text('Pick Image'),
           ),
-          const SizedBox(width: 12),
-          ElevatedButton(
-            onPressed: onClickedScanText,
-            child: Text('Scan For Text'),
-          ),
-          const SizedBox(width: 12),
-          ElevatedButton(
-            onPressed: onClickedClear,
-            child: Text('Clear'),
-          )
+          // const SizedBox(width: 12),
+          // ElevatedButton(
+          //   onPressed: onClickedScanText,
+          //   child: Text('Scan For Text'),
+          // ),
+          // const SizedBox(width: 12),
+          // ElevatedButton(
+          //   onPressed: onClickedClear,
+          //   child: Text('Clear'),
+          // )
         ],
       );
 }
