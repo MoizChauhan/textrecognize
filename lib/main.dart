@@ -1,3 +1,4 @@
+import 'package:firebase_ml_text_recognition/lotterySelection.dart';
 import 'package:firebase_ml_text_recognition/widget/text_recognition_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -11,22 +12,24 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: title,
         theme: ThemeData(primarySwatch: Colors.purple),
-        home: MainPage(title: title),
+        home: LotterySelection(),
       );
 }
 
-class MainPage extends StatefulWidget {
+class LotteryScan extends StatefulWidget {
   final String title;
+  final int regexNumber;
 
-  const MainPage({
+  const LotteryScan({
     @required this.title,
+    @required this.regexNumber,
   });
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _LotteryScanState createState() => _LotteryScanState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _LotteryScanState extends State<LotteryScan> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -37,7 +40,9 @@ class _MainPageState extends State<MainPage> {
           child: Column(
             children: [
               const SizedBox(height: 25),
-              TextRecognitionWidget(),
+              TextRecognitionWidget(
+                regexNumber: widget.regexNumber,
+              ),
               const SizedBox(height: 15),
             ],
           ),

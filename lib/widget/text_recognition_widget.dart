@@ -12,7 +12,9 @@ import 'controls_widget.dart';
 class TextRecognitionWidget extends StatefulWidget {
   const TextRecognitionWidget({
     Key key,
+    this.regexNumber,
   }) : super(key: key);
+  final int regexNumber;
 
   @override
   _TextRecognitionWidgetState createState() => _TextRecognitionWidgetState();
@@ -102,7 +104,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       },
     );
 
-    final text = await FirebaseMLApi.recogniseText(image);
+    final text = await FirebaseMLApi.recogniseText(image, widget.regexNumber);
     setText(text);
 
     Navigator.of(context).pop();
