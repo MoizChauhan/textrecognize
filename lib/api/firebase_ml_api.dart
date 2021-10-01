@@ -8,6 +8,7 @@ class FirebaseMLApi {
       return 'No selected image';
     } else {
       final visionImage = FirebaseVisionImage.fromFile(imageFile);
+
       final textRecognizer = FirebaseVision.instance.textRecognizer();
       try {
         final visionText = await textRecognizer.processImage(visionImage);

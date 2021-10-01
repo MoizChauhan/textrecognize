@@ -6,6 +6,7 @@ import 'package:firebase_ml_text_recognition/Utils/colors.dart';
 import 'package:firebase_ml_text_recognition/api/firebase_ml_api.dart';
 import 'package:firebase_ml_text_recognition/widget/text_area_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'controls_widget.dart';
 
@@ -87,11 +88,33 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   Future pickImage() async {
     final file = await ImagePicker().getImage(source: ImageSource.gallery);
     setImage(File(file.path));
+    // cropView(file);
   }
 
   Future captureImage() async {
     final file = await ImagePicker().getImage(source: ImageSource.camera);
+    // cropView(file);
     setImage(File(file.path));
+  }
+
+  cropView(PickedFile image) async {
+    File croppedFile = await ImageCropper.cropImage(
+      sourcePath: image.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio4x3,
+      ],
+      androidUiSettings: AndroidUiSettings(
+          toolbarTitle: "Crop for lottery",
+          toolbarColor: primaryColor,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false),
+      iosUiSettings: IOSUiSettings(
+        minimumAspectRatio: 1.0,
+      ),
+    );
+    setImage(File(croppedFile.path));
   }
 
   Future scanText() async {
