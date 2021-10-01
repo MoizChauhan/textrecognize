@@ -6,6 +6,7 @@ import 'package:firebase_ml_text_recognition/Utils/colors.dart';
 import 'package:firebase_ml_text_recognition/api/firebase_ml_api.dart';
 import 'package:firebase_ml_text_recognition/widget/text_area_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'controls_widget.dart';
@@ -23,7 +24,7 @@ class TextRecognitionWidget extends StatefulWidget {
 
 class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   String text = '';
-  File image;
+  InputImage image;
 
   @override
   Widget build(BuildContext context) => Expanded(
@@ -46,38 +47,38 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       );
   //Camera Actions
   cameraAction() {
-    showAdaptiveActionSheet(
-      title: Text(
-        "Select Option",
-        style: TextStyle(fontSize: 25),
-      ),
-      actions: <BottomSheetAction>[
-        BottomSheetAction(
-          title: Text("Camera", style: TextStyle(color: primaryColor)),
-          onPressed: () {
-            Navigator.pop(context);
-            captureImage();
-          },
-        ),
-        BottomSheetAction(
-          title: Text(
-            "Gallery",
-            style: TextStyle(color: primaryColor),
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-            pickImage();
-          },
-        )
-      ],
-      cancelAction: CancelAction(
-        title: Text("Cancel"),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      context: context,
-    );
+    // showAdaptiveActionSheet(
+    //   BuildContext: context,
+    //   title: Text(
+    //     "Select Option",
+    //     style: TextStyle(fontSize: 25),
+    //   ),
+    //   actions: <BottomSheetAction>[
+    //     BottomSheetAction(
+    //       title: Text("Camera", style: TextStyle(color: primaryColor)),
+    //       onPressed: () {
+    //         Navigator.pop(context);
+    //         captureImage();
+    //       },
+    //     ),
+    //     BottomSheetAction(
+    //       title: Text(
+    //         "Gallery",
+    //         style: TextStyle(color: primaryColor),
+    //       ),
+    //       onPressed: () {
+    //         Navigator.pop(context);
+    //         pickImage();
+    //       },
+    //     )
+    //   ],
+    //   cancelAction: CancelAction(
+    //     title: Text("Cancel"),
+    //     onPressed: () {
+    //       Navigator.pop(context);
+    //     },
+    //   ),
+    // );
     // showCupertinoModalPopup(context: context, builder: (context) => action);
   }
 
@@ -86,7 +87,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       );
 
   Future pickImage() async {
-    final file = await ImagePicker().getImage(source: ImageSource.gallery);
+    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
     setImage(File(file.path));
     // cropView(file);
   }
@@ -144,9 +145,9 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
     }
   }
 
-  void setImage(File newImage) {
+  void setImage(InputImage? newImage) {
     setState(() {
-      image = newImage;
+      image = newImage!;
     });
     scanText();
   }

@@ -5,9 +5,9 @@ class TextAreaWidget extends StatelessWidget {
   final VoidCallback onClickedCopy;
 
   const TextAreaWidget({
-    @required this.text,
-    @required this.onClickedCopy,
-    Key key,
+    required this.text,
+    required this.onClickedCopy,
+    Key? key,
   }) : super(key: key);
 
   @override

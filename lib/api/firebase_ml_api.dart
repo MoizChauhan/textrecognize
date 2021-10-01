@@ -1,20 +1,20 @@
 import 'dart:io';
 
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 
 class FirebaseMLApi {
-  static Future<String> recogniseText(File imageFile, int regexNumber) async {
+  static Future<String> recogniseText(InputImage imageFile, int regexNumber) async {
     if (imageFile == null) {
       return 'No selected image';
     } else {
-      final visionImage = FirebaseVisionImage.fromFile(imageFile);
+      // final visionImage = FirebaseVisionImage.fromFile(imageFile);
 
-      final textRecognizer = FirebaseVision.instance.textRecognizer();
+      // final textRecognizer = FirebaseVision.instance.textRecognizer();
       try {
-        final visionText = await textRecognizer.processImage(visionImage);
-        await textRecognizer.close();
+        // final visionText = await textRecognizer.processImage(visionImage);
+        // await textRecognizer.close();
 
-        final text = extractText(visionText, regexNumber);
+        final text = extractText("", regexNumber);
         return text.isEmpty ? 'No text found in the image' : text;
       } catch (error) {
         return error.toString();
@@ -22,7 +22,7 @@ class FirebaseMLApi {
     }
   }
 
-  static extractText(VisionText visionText, regexNumber) {
+  static extractText(visionText, regexNumber) {
     String text = '';
 
     RegExp ticketRegex; // = RegExp(r"\d[:][\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d[\s]\d\d");
@@ -64,30 +64,30 @@ class FirebaseMLApi {
     RegExp dateRegex = RegExp(r"\b\d\d[.]\d\d[.]\d\d");
     RegExp singleDigit = RegExp(r"\b\d\b$");
     int i = 0;
-    for (TextBlock block in visionText.blocks) {
-      for (TextLine line in block.lines) {
-        // for (TextElement word in line.elements) {
-        //   text = text + word.text + ' ';
-        // }
-        print("line $i : ${line.text} ");
-        if (ticketRegex.hasMatch(line.text)) {
-          text = text + line.text + '\n';
-        }
-        if (regexNumber == 5 || regexNumber == 6) {
-          if (singleDigit.hasMatch(line.text)) {
-            text = text + line.text + '\n';
-          }
-        }
-        if (dateRegex.hasMatch(line.text)) {
-          text = text + dateRegex.stringMatch(line.text) + '\n';
-        }
-      }
-      // print("block $i : ${block.text} ");
-      // if(block.text.contains("1:") && block.text.contains("2:")){
-      //   text = text + block.text + '\n';
-      // }
-      i++;
-    }
+    // for (TextBlock block in visionText.blocks) {
+    //   for (TextLine line in block.lines) {
+    //     // for (TextElement word in line.elements) {
+    //     //   text = text + word.text + ' ';
+    //     // }
+    //     print("line $i : ${line.text} ");
+    //     if (ticketRegex.hasMatch(line.text)) {
+    //       text = text + line.text + '\n';
+    //     }
+    //     if (regexNumber == 5 || regexNumber == 6) {
+    //       if (singleDigit.hasMatch(line.text)) {
+    //         text = text + line.text + '\n';
+    //       }
+    //     }
+    //     if (dateRegex.hasMatch(line.text)) {
+    //       text = text + dateRegex.stringMatch(line.text) + '\n';
+    //     }
+    //   }
+    //   // print("block $i : ${block.text} ");
+    //   // if(block.text.contains("1:") && block.text.contains("2:")){
+    //   //   text = text + block.text + '\n';
+    //   // }
+    //   i++;
+    // }
 
     return text;
   }
