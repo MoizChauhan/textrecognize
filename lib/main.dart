@@ -1,8 +1,16 @@
-import 'package:firebase_ml_text_recognition/lotterySelection.dart';
+import 'package:camera/camera.dart';
+import 'package:firebase_ml_text_recognition/text_detector.dart';
 import 'package:firebase_ml_text_recognition/widget/text_recognition_widget.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  cameras = await availableCameras();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   final String title = 'Text Recognition';
@@ -12,7 +20,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: title,
         theme: ThemeData(primarySwatch: Colors.purple),
-        home: LotterySelection(),
+        home: TextDetectorView(),
       );
 }
 
@@ -21,8 +29,8 @@ class LotteryScan extends StatefulWidget {
   final int regexNumber;
 
   const LotteryScan({
-    @required this.title,
-    @required this.regexNumber,
+    required this.title,
+    required this.regexNumber,
   });
 
   @override

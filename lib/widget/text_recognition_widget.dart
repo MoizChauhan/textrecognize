@@ -13,8 +13,8 @@ import 'controls_widget.dart';
 
 class TextRecognitionWidget extends StatefulWidget {
   const TextRecognitionWidget({
-    Key key,
-    this.regexNumber,
+    Key? key,
+    required this.regexNumber,
   }) : super(key: key);
   final int regexNumber;
 
@@ -24,13 +24,13 @@ class TextRecognitionWidget extends StatefulWidget {
 
 class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   String text = '';
-  InputImage image;
+  late InputImage image;
 
   @override
   Widget build(BuildContext context) => Expanded(
         child: Column(
           children: [
-            Expanded(child: buildImage()),
+            Expanded(child: Container()),
             const SizedBox(height: 16),
             ControlsWidget(
               onClickedPickImage: cameraAction,
@@ -47,59 +47,65 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       );
   //Camera Actions
   cameraAction() {
-    // showAdaptiveActionSheet(
-    //   BuildContext: context,
-    //   title: Text(
-    //     "Select Option",
-    //     style: TextStyle(fontSize: 25),
-    //   ),
-    //   actions: <BottomSheetAction>[
-    //     BottomSheetAction(
-    //       title: Text("Camera", style: TextStyle(color: primaryColor)),
-    //       onPressed: () {
-    //         Navigator.pop(context);
-    //         captureImage();
-    //       },
-    //     ),
-    //     BottomSheetAction(
-    //       title: Text(
-    //         "Gallery",
-    //         style: TextStyle(color: primaryColor),
-    //       ),
-    //       onPressed: () {
-    //         Navigator.pop(context);
-    //         pickImage();
-    //       },
-    //     )
-    //   ],
-    //   cancelAction: CancelAction(
-    //     title: Text("Cancel"),
-    //     onPressed: () {
-    //       Navigator.pop(context);
-    //     },
-    //   ),
-    // );
+    showAdaptiveActionSheet(
+      context: context,
+      title: Text(
+        "Select Option",
+        style: TextStyle(fontSize: 25),
+      ),
+      actions: <BottomSheetAction>[
+        BottomSheetAction(
+          title: Text("Camera", style: TextStyle(color: primaryColor)),
+          onPressed: () {
+            Navigator.pop(context);
+            captureImage();
+          },
+        ),
+        BottomSheetAction(
+          title: Text(
+            "Gallery",
+            style: TextStyle(color: primaryColor),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            pickImage();
+          },
+        )
+      ],
+      cancelAction: CancelAction(
+        title: Text("Cancel"),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
     // showCupertinoModalPopup(context: context, builder: (context) => action);
   }
 
-  Widget buildImage() => Container(
-        child: image != null ? Image.file(image) : Icon(Icons.photo, size: 80, color: Colors.black),
-      );
+  // Widget buildImage() => Container(
+  //       child: CameraView(
+  //     title: 'Text Detector',
+  //     customPaint: customPaint,
+  //     onImage: (inputImage) {
+  //       processImage(inputImage);
+  //     },
+  //   );,
+  //     );
 
   Future pickImage() async {
     final file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    setImage(File(file.path));
+    setImage(InputImage.fromFilePath(file!.path));
     // cropView(file);
   }
 
   Future captureImage() async {
-    final file = await ImagePicker().getImage(source: ImageSource.camera);
+    final file = await ImagePicker().pickImage(source: ImageSource.camera);
     // cropView(file);
-    setImage(File(file.path));
+    setImage(InputImage.fromFilePath(file!.path));
   }
 
   cropView(PickedFile image) async {
-    File croppedFile = await ImageCropper.cropImage(
+    File? croppedFile = await ImageCropper.cropImage(
       sourcePath: image.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
@@ -115,7 +121,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
         minimumAspectRatio: 1.0,
       ),
     );
-    setImage(File(croppedFile.path));
+    setImage(InputImage.fromFilePath(croppedFile!.path));
   }
 
   Future scanText() async {
