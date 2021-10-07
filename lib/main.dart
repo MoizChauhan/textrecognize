@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:firebase_ml_text_recognition/lotterySelection.dart';
 import 'package:firebase_ml_text_recognition/text_detector.dart';
 import 'package:firebase_ml_text_recognition/widget/text_recognition_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: title,
         theme: ThemeData(primarySwatch: Colors.purple),
-        home: TextDetectorView(),
+        home: LotterySelection(),
       );
 }
 

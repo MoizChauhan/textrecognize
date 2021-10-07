@@ -25,12 +25,13 @@ class TextRecognitionWidget extends StatefulWidget {
 class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   String text = '';
   late InputImage image;
+  File? imageFile;
 
   @override
   Widget build(BuildContext context) => Expanded(
         child: Column(
           children: [
-            Expanded(child: Container()),
+            Expanded(child: buildImage()),
             const SizedBox(height: 16),
             ControlsWidget(
               onClickedPickImage: cameraAction,
@@ -82,18 +83,15 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
     // showCupertinoModalPopup(context: context, builder: (context) => action);
   }
 
-  // Widget buildImage() => Container(
-  //       child: CameraView(
-  //     title: 'Text Detector',
-  //     customPaint: customPaint,
-  //     onImage: (inputImage) {
-  //       processImage(inputImage);
-  //     },
-  //   );,
-  //     );
+  Widget buildImage() => Container(
+        child: imageFile != null ? Image.file(imageFile!) : Icon(Icons.photo, size: 80, color: Colors.black),
+      );
 
   Future pickImage() async {
     final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      imageFile = File(file!.path);
+    });
     setImage(InputImage.fromFilePath(file!.path));
     // cropView(file);
   }
@@ -101,6 +99,10 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   Future captureImage() async {
     final file = await ImagePicker().pickImage(source: ImageSource.camera);
     // cropView(file);
+    setState(() {
+      imageFile = File(file!.path);
+    });
+
     setImage(InputImage.fromFilePath(file!.path));
   }
 
