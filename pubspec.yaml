@@ -7,13 +7,11 @@ environment:
 dependencies:
   adaptive_action_sheet: 1.1.0
   clipboard: ^0.1.2+8
-
   cupertino_icons: ^1.0.0
-
-  # Text recognition
   firebase_ml_vision: ^0.9.7
   flutter:
     sdk: flutter
+  flutter_exif_rotation: ^0.4.2
   image_cropper: null
   image_picker: ^0.6.7+11
 dev_dependencies:

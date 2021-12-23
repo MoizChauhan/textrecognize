@@ -6,6 +6,7 @@ import 'package:firebase_ml_text_recognition/Utils/colors.dart';
 import 'package:firebase_ml_text_recognition/api/firebase_ml_api.dart';
 import 'package:firebase_ml_text_recognition/widget/text_area_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'controls_widget.dart';
@@ -94,7 +95,12 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   Future captureImage() async {
     final file = await ImagePicker().getImage(source: ImageSource.camera);
     // cropView(file);
-    setImage(File(file.path));
+    if (Platform.isIOS) {
+      var file2 = await FlutterExifRotation.rotateImage(path: file.path);
+      setImage(File(file2.path));
+    } else {
+      setImage(File(file.path));
+    }
   }
 
   cropView(PickedFile image) async {
